@@ -2,3 +2,71 @@
 
 /* Secret love question — butter-yellow opening */
 .secret-scene{max-width:640px;padding:30px 0 42px}.secret-symbol{height:98px;width:98px;border-radius:50%;display:grid;place-items:center;margin:0 auto 26px;color:#d7a0a0;background:radial-gradient(circle,#fff4ce 42%,#f7e2b8 100%);box-shadow:0 16px 38px #cfa56c30;animation:float 4s ease-in-out infinite}.secret-form{display:flex;flex-direction:column;align-items:center;gap:17px;margin:24px auto 0;width:min(100%,440px)}.secret-prompt{font-family:'Playfair Display',Georgia,serif;font-size:clamp(20px,4vw,28px);color:#795b48;line-height:1.4}.secret-form input{width:100%;border:1px solid #e7d5b2;border-radius:17px;background:#fffdfa;padding:17px 19px;color:#634c3a;box-shadow:0 12px 28px #99734410;text-align:center;font-size:16px}.secret-form input:disabled{opacity:.65}.secret-form .primary-button{margin-top:4px}.secret-feedback{border-radius:18px;max-width:490px;margin:22px auto 0;padding:20px 24px;line-height:1.7;font-size:15px;box-shadow:0 12px 30px #ba955322}.secret-feedback.correct{background:#fff4d0;color:#88643c}.secret-feedback.warning{background:#fff7ec;color:#aa765e}.secret-feedback small{display:block;margin-top:8px;color:#aa8a5e;font-size:12px}.floating-hearts{display:block;letter-spacing:12px;color:#d9a5a4;font-size:25px;margin-bottom:8px;animation:float 2s ease-in-out infinite}
+
+/* Romantic cinematic polish: envelope, gift, memory scrapbook, letter and finale */
+.premium-envelope{perspective:650px;transform-style:preserve-3d;overflow:visible}
+.premium-envelope .envelope-back{background:linear-gradient(155deg,#e7bc7f,#f6dbad);box-shadow:inset 0 0 0 2px #edcb94}
+.premium-envelope .envelope-flap{background:linear-gradient(145deg,#fbe7bd,#edc68b);filter:drop-shadow(0 2px 2px #8b603422)}
+.premium-envelope .envelope-letter{background:linear-gradient(160deg,#fffdf6,#fff9e8);box-shadow:0 3px 12px #815c2b20;display:flex;flex-direction:column;gap:9px;font-family:'Playfair Display',serif;will-change:transform}
+.premium-envelope .envelope-letter span{font-size:21px}.premium-envelope .envelope-letter small{font-size:9px;letter-spacing:.13em;color:#b49b79;text-transform:uppercase;font-family:'DM Sans',sans-serif}
+.premium-envelope .envelope-seal{background:radial-gradient(circle at 30% 23%,#f1c3bd,#b96f73);border:2px solid #efc8bb;box-shadow:0 3px 10px #a76c6666;top:91px}
+.premium-envelope.envelope-accepting{animation:none}
+.premium-envelope.envelope-accepting .envelope-flap{animation:none;transform:rotateX(180deg)}
+.premium-envelope.envelope-accepting .envelope-letter{animation:invitation-rise 1.5s ease forwards}
+.premium-envelope.envelope-accepting .envelope-seal{opacity:0;animation:none}
+@keyframes invitation-rise{0%{transform:translateY(-58px)}48%{transform:translateY(-108px) scale(1.04)}100%{transform:translateY(-122px) scale(1.08)}}
+.accept-sparkles{position:absolute;inset:-95px;pointer-events:none;z-index:8}
+.accept-sparkles i{position:absolute;left:50%;top:50%;font-style:normal;color:#e6b55a;font-size:21px;animation:accept-sparkle 1.35s ease-out forwards;--angle:calc(var(--i) * 45deg);transform:rotate(var(--angle)) translateY(-15px)}
+@keyframes accept-sparkle{0%{opacity:0;transform:rotate(calc(var(--i) * 45deg)) translateY(-18px) scale(.3)}35%{opacity:1}100%{opacity:0;transform:rotate(calc(var(--i) * 45deg)) translateY(-145px) scale(1.3)}}
+.cinematic-gift{perspective:700px;transform-style:preserve-3d}
+.cinematic-gift .gift-box{background:linear-gradient(130deg,#f5d9a8 5%,#dfaa8b 56%,#edc6a5 100%);box-shadow:inset -14px 0 25px #9c6e4d28,0 21px 23px #d6a36c3b}
+.cinematic-gift .gift-lid{background:linear-gradient(135deg,#fff0c3,#deaf8f);box-shadow:0 6px 10px #8c614333;will-change:transform}
+.cinematic-gift .gift-glow{position:absolute;z-index:1;left:16px;right:16px;bottom:80px;height:150px;background:radial-gradient(ellipse at center,#ffe8a4dd 0,#f5cf7a88 32%,transparent 71%);filter:blur(14px);opacity:0;transform:scale(.25);pointer-events:none}
+.cinematic-gift .gift-float-hearts{position:absolute;left:0;right:0;bottom:90px;opacity:0;color:#d28f94;font-size:29px;letter-spacing:14px;pointer-events:none}
+.gift-is-opening .gift-lid{animation:gift-lid-lift 1.2s cubic-bezier(.19,1,.22,1) forwards}
+.gift-is-opening .gift-glow{animation:gift-light-rise 1.25s ease forwards}
+.gift-is-opening .gift-float-hearts{animation:gift-hearts-rise 1.2s ease forwards}
+.gift-is-opening .gift-bow{animation:gift-bow-lift 1.2s ease forwards}
+@keyframes gift-lid-lift{0%{transform:rotate(-5deg)}65%{transform:translate(-12px,-100px) rotate(-24deg)}100%{transform:translate(-18px,-120px) rotate(-29deg)}}
+@keyframes gift-bow-lift{to{transform:translate(-17px,-120px) rotate(-23deg);opacity:.35}}
+@keyframes gift-light-rise{0%{opacity:0;transform:scale(.25)}60%{opacity:1;transform:scale(1.3)}100%{opacity:.9;transform:scale(1.5)}}
+@keyframes gift-hearts-rise{0%{opacity:0;transform:translateY(5px) scale(.6)}35%{opacity:1}100%{opacity:0;transform:translateY(-120px) scale(1.3)}}
+.memory-card{border:0;position:relative;text-align:center;cursor:pointer;transform:rotate(var(--tilt));animation:memory-arrive .48s both;animation-delay:calc(var(--order) * 75ms);transition:transform .25s ease,box-shadow .25s ease}
+.memory-card:hover,.memory-card:focus-visible{transform:rotate(0deg) translateY(-10px) scale(1.035);box-shadow:0 23px 37px #785d4235;z-index:1}
+.memory-card small{display:block;margin-top:4px;font-size:10px;color:#b39a80}
+.memory-sticker{position:absolute;right:-8px;top:-13px;font-size:28px;color:#d5aa5b;transform:rotate(16deg);text-shadow:0 2px 2px #fff}
+@keyframes memory-arrive{from{opacity:0;translate:0 15px}to{opacity:1;translate:0 0}}
+.memory-lightbox-backdrop{position:fixed;z-index:19;inset:0;background:#3d342dcc;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.memory-lightbox{position:relative;width:min(100%,480px);max-height:calc(100dvh - 40px);overflow:auto;border-radius:12px;background:#fffdf4;padding:18px 18px 24px;box-shadow:0 22px 70px #23180f88;text-align:center}
+.memory-lightbox img{display:block;max-width:100%;width:100%;max-height:55dvh;object-fit:contain;border-radius:5px;background:#f5ecdb}
+.memory-lightbox h2{margin:17px 0 3px;color:#8b624e}
+.memory-lightbox p{font-size:14px;line-height:1.8;color:#866e60;margin:10px 0 0}
+.memory-lightbox .memory-date{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#b99562}
+.lightbox-close{position:absolute;z-index:2;top:22px;right:22px;border:0;border-radius:50%;width:36px;height:36px;background:#fffdf6e9;display:grid;place-items:center;color:#71573d;box-shadow:0 2px 9px #0002}
+.editor-memory-list{display:grid;gap:16px;margin-top:16px}
+.editor-memory{display:flex;align-items:flex-start;gap:14px;background:#fffef8;border:1px solid #eee0c7;border-radius:13px;padding:11px}
+.editor-memory>img{width:85px;height:100px;border-radius:7px;object-fit:cover}
+.editor-memory-fields{flex:1;min-width:0;display:grid;gap:10px}
+.editor-memory-fields label{display:grid;gap:4px;font-size:11px;font-weight:700;color:#987a54}
+.editor-memory-fields input,.editor-memory-fields textarea{width:100%;border:1px solid #e8d9bf;border-radius:8px;padding:8px;font-size:12px;color:#644c3c;background:white}
+.remove-memory{justify-self:start;background:none;border:0;padding:3px 0;color:#b67368;font-size:11px}
+.sealed-letter{position:relative;display:block;width:min(100%,340px);height:230px;margin:30px auto 24px;background:linear-gradient(155deg,#f6dfad,#e9c791);border:0;border-radius:10px;box-shadow:0 24px 40px #a7804830;overflow:hidden;transition:transform .3s ease}
+.sealed-letter:hover{transform:translateY(-7px) rotate(-1deg)}
+.sealed-letter-flap{position:absolute;inset:0;background:#fff0ca;clip-path:polygon(0 0,100% 0,50% 60%)}
+.sealed-letter-seal{position:absolute;left:calc(50% - 25px);top:90px;width:50px;height:50px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#eeb9b4,#c47c80);color:white;display:grid;place-items:center;border:2px solid #f5d2ca;font-size:26px;box-shadow:0 4px 12px #95606744}
+.sealed-letter-caption{position:absolute;bottom:19px;left:0;right:0;font-family:'Playfair Display',serif;color:#8b694b;font-style:italic}
+.unfolded-paper{transform-origin:top center;perspective:900px;min-height:230px}
+.typing-cursor{color:#b7895d;animation:blink .75s infinite}
+@keyframes blink{50%{opacity:0}}
+.letter-actions{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:24px 0}
+.finale{position:relative;isolation:isolate}
+.blooming-sunflower .petals{animation:bloom-petals 1.7s cubic-bezier(.18,1,.25,1) both}
+.blooming-sunflower .flower-core{animation:bloom-heart 1.7s cubic-bezier(.18,1,.25,1) both}
+@keyframes bloom-petals{from{opacity:0;transform:scale(.1) rotate(-100deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes bloom-heart{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+.finale-particles{position:absolute;inset:-50px 0 0;z-index:-1;pointer-events:none;overflow:hidden}
+.finale-particles span{position:absolute;top:-25px;left:calc(6% + var(--i) * 7.8%);color:#dba19d;font-size:calc(13px + (var(--i) % 4) * 3px);opacity:0;animation:falling-hearts calc(3.5s + var(--i) * .18s) linear infinite;animation-delay:calc(var(--i) * -.33s)}
+@keyframes falling-hearts{0%{transform:translateY(-35px) rotate(-20deg);opacity:0}12%{opacity:.68}85%{opacity:.55}100%{transform:translateY(540px) rotate(25deg);opacity:0}}
+.final-memory-photo{display:block;width:160px;height:184px;object-fit:cover;margin:5px auto 23px;border:8px solid white;border-bottom-width:23px;box-shadow:0 14px 31px #9470443d;transform:rotate(-4deg);animation:memory-arrive .9s both}
+@media(max-width:600px){.premium-envelope{scale:.9}.memory-lightbox{max-height:calc(100dvh - 28px)}.editor-memory{gap:9px}.editor-memory>img{width:65px;height:82px}.final-memory-photo{width:135px;height:154px}.sealed-letter{width:min(100%,300px);height:210px}.letter-actions .primary-button,.letter-actions .secondary-button{width:100%;max-width:280px}}
+@media(prefers-reduced-motion:reduce){.envelope-accepting .envelope-letter{transform:translateY(-85px)}.gift-is-opening .gift-lid{transform:translate(-12px,-85px)}.blooming-sunflower .petals{transform:scale(1)}}
