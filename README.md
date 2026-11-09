@@ -38,3 +38,18 @@ For a truly shareable customized website, we should next add authenticated editi
 
 ## Stack
 React, Vite, Framer Motion, Lucide icons, custom CSS.
+
+## Secret love question (local prototype)
+
+The visitor now starts with **“Saan tayo unang nag-kiss?”** and the nickname **Baby**. After a correct answer, a sweet response appears and the invitation opens automatically after roughly 2.2 seconds. Wrong answers get a cute retry message.
+
+To set the correct answer **on your development computer**:
+
+1. Run `npm install && npm run dev`.
+2. Open `http://localhost:5173/?admin=1` (for **local testing only**).
+3. In Customize, enter **Secret love question**, **Accepted answer(s)**, and the response messages. Separate alternative accepted spellings with `|` (for example `place one|alternate spelling`). Do not use a personal secret in examples committed to git.
+4. Close the editor; open `http://localhost:5173/` to test the visitor flow.
+
+The correct answer is intentionally blank by default; the visitor cannot proceed until an answer is configured on that browser. No real answer is stored in source control.
+
+**Security warning:** The `?admin=1` URL is NOT an admin login. It only shows editor controls for local preview. Both the answer and the content remain browser-local. Client-side question checking can be bypassed and does not protect remote media. Before real sharing, build a server-validated question with rate limits, authenticated owner-only admin, and protected media access. Do NOT deploy this prototype as a confidential surprise or add private content to a public repo.
