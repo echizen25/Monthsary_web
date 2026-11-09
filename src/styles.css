@@ -65,7 +65,7 @@
 @keyframes bloom-petals{from{opacity:0;transform:scale(.1) rotate(-100deg)}to{opacity:1;transform:scale(1) rotate(0)}}
 @keyframes bloom-heart{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
 .finale-particles{position:absolute;inset:-50px 0 0;z-index:-1;pointer-events:none;overflow:hidden}
-.finale-particles span{position:absolute;top:-25px;left:calc(6% + var(--i) * 7.8%);color:#dba19d;font-size:calc(13px + (var(--i) % 4) * 3px);opacity:0;animation:falling-hearts calc(3.5s + var(--i) * .18s) linear infinite;animation-delay:calc(var(--i) * -.33s)}
+.finale-particles span{position:absolute;top:-25px;left:calc(6% + var(--i) * 7.8%);color:#dba19d;font-size:18px;opacity:0;animation:falling-hearts calc(3.5s + var(--i) * .18s) linear infinite;animation-delay:calc(var(--i) * -.33s)}
 @keyframes falling-hearts{0%{transform:translateY(-35px) rotate(-20deg);opacity:0}12%{opacity:.68}85%{opacity:.55}100%{transform:translateY(540px) rotate(25deg);opacity:0}}
 .final-memory-photo{display:block;width:160px;height:184px;object-fit:cover;margin:5px auto 23px;border:8px solid white;border-bottom-width:23px;box-shadow:0 14px 31px #9470443d;transform:rotate(-4deg);animation:memory-arrive .9s both}
 @media(max-width:600px){.premium-envelope{scale:.9}.memory-lightbox{max-height:calc(100dvh - 28px)}.editor-memory{gap:9px}.editor-memory>img{width:65px;height:82px}.final-memory-photo{width:135px;height:154px}.sealed-letter{width:min(100%,300px);height:210px}.letter-actions .primary-button,.letter-actions .secondary-button{width:100%;max-width:280px}}
