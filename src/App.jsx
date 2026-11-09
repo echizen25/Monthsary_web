@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Check, Gift, Heart, Images, LockKeyhole, Mail, Music2, Music2Off, Play, RotateCcw, Settings2, Sparkles, Sun, UploadCloud, X } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Gift, Heart, Images, LockKeyhole, Mail, Music2, VolumeX, Play, RotateCcw, Settings2, Sparkles, Sun, UploadCloud, X } from 'lucide-react';
 
 const DEFAULTS = {
   nickname: 'my sunshine',
@@ -132,7 +132,7 @@ export default function App(){
     <header className="header">
       <div className="brand"><Sun size={22} strokeWidth={1.6}/><span>our little sunshine <i>♡</i></span></div>
       <div className="header-actions">
-        <button className="icon-button" onClick={()=>{if(!media.music)return msg('Add your favorite music in Customize first.');setMusicOn(v=>!v)}} aria-label={musicOn?'Pause music':'Play music'} title={musicOn?'Pause music':'Play music'}>{musicOn?<Music2 size={18}/>:<Music2Off size={18}/>}</button>
+        <button className="icon-button" onClick={()=>{if(!media.music)return msg('Add your favorite music in Customize first.');setMusicOn(v=>!v)}} aria-label={musicOn?'Pause music':'Play music'} title={musicOn?'Pause music':'Play music'}>{musicOn?<Music2 size={18}/>:<VolumeX size={18}/>}</button>
         <button className="icon-button" onClick={()=>setEdit(true)} aria-label="Customize website" title="Customize"><Settings2 size={18}/></button>
       </div>
     </header>
