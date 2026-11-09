@@ -13,13 +13,10 @@ const DEFAULTS = {
   finalNote: 'You make my world a little brighter, every single day.',
   date: '',
   secretQuestion: 'Saan tayo unang nag-kiss?',
-  secretAnswer: '',
   successMessage: 'Yieee! Of course you remember, Baby! 🥹💛 I made something special just for you.',
-  incorrectMessage: 'Halaaa Baby! 🥺 Think again, alam kong naaalala mo ’yan. Hihi! 💛',
 };
 const copy = (key) => { try { return localStorage.getItem(key); } catch { return null; } };
 const save = (key, val) => { try { localStorage.setItem(key,val); } catch {} };
-const normalizeAnswer = (s) => (s || '').normalize('NFKC').trim().replace(/\\s+/g, ' ').toLocaleLowerCase();
 const isAdminPreview = new URLSearchParams(window.location.search).get('admin') === '1';
 const MOTION = { initial:{opacity:0,y:18,scale:.985}, animate:{opacity:1,y:0,scale:1}, exit:{opacity:0,y:-14,scale:.985}, transition:{duration:.42,ease:'easeOut'} };
 
@@ -81,14 +78,14 @@ export default function App(){
   useEffect(()=>()=>clearTimeout(advanceTimer.current),[]);
   const submitAnswer=(e)=>{
     e.preventDefault();
-    if(gateState==='correct')return;
-    const accepted=normalizeAnswer(config.secretAnswer).split('|').map(normalizeAnswer).filter(Boolean);
-    if(!accepted.length){setGateState('not-ready');return;}
-    if(accepted.includes(normalizeAnswer(answer))){
-      setGateState('correct');
-      clearTimeout(advanceTimer.current);
-      advanceTimer.current=setTimeout(()=>{setStage(0);setGateState('idle');setAnswer('');},2200);
-    }else setGateState('wrong');
+    if(gateState==='correct'||!answer.trim())return;
+    setGateState('correct');
+    clearTimeout(advanceTimer.current);
+    advanceTimer.current=setTimeout(()=>{
+      setStage(0);
+      setGateState('idle');
+      setAnswer('');
+    },2200);
   };
 
   useEffect(()=>{
@@ -172,9 +169,7 @@ export default function App(){
             <button type="submit" className="primary-button" disabled={gateState==='correct'||!answer.trim()}>{gateState==='correct'?'A little surprise is coming…':'Unlock my surprise'} <Heart size={16} fill="currentColor"/></button>
           </form>
           <AnimatePresence mode="wait">
-            {gateState==='wrong'&&<motion.div key="wrong" className="secret-feedback warning" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0}} role="status">{config.incorrectMessage}</motion.div>}
             {gateState==='correct'&&<motion.div key="correct" className="secret-feedback correct" initial={{opacity:0,scale:.93}} animate={{opacity:1,scale:1}} exit={{opacity:0}} role="status"><span className="floating-hearts">♥ ♡ ♥</span>{config.successMessage}<small>Opening your invitation…</small></motion.div>}
-            {gateState==='not-ready'&&<motion.div key="notready" className="secret-feedback warning" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} role="status">This surprise isn't ready just yet. ♡</motion.div>}
           </AnimatePresence>
           <p className="small-caption">only my favorite person knows this 💛</p>
         </motion.section>}
@@ -215,11 +210,11 @@ export default function App(){
       <motion.aside className="editor" initial={{x:420}} animate={{x:0}} exit={{x:420}} transition={{type:'spring',damping:28,stiffness:230}} role="dialog" aria-modal="true" aria-label="Customize your surprise">
         <div className="editor-header"><div><span className="eyebrow">make it yours</span><h2>Customize ♡</h2></div><button className="icon-button" aria-label="Close editor" onClick={()=>setEdit(false)}><X/></button></div>
         <p className="editor-notice"><LockKeyhole size={15}/> This editor is only a local preview, not password-protected. Changes and uploaded media stay in this browser, not in GitHub or on your recipient's device.</p>
-        <p className="editor-notice"><LockKeyhole size={15}/> Preview only: /?admin=1 is NOT secure authentication. Set your correct answer here for local testing. This data stays on this device and cannot protect photos or letters on a public deployment.</p>
+        <p className="editor-notice"><LockKeyhole size={15}/> Preview only: /?admin=1 is NOT secure authentication. Any nonempty answer continues automatically; this question is just a playful introduction, not a security check. Changes stay in this browser.</p>
         <div className="field-grid">
           {[
-            ['secretQuestion','Secret love question'],['secretAnswer','Accepted answer(s) – use | between alternatives'],['successMessage','Correct answer response'],['incorrectMessage','Wrong answer response'],['nickname','Sweet nickname'],['signature','Your signature'],['heading','Invitation heading'],['invite','Invitation message'],['giftNote','Gift message'],['videoCaption','Video caption'],['letter','Love letter'],['finalNote','Final surprise message']
-          ].map(([key,label])=><label className="field" key={key}><span>{label}</span>{['invite','giftNote','letter','finalNote','successMessage','incorrectMessage'].includes(key)?<textarea rows={key==='letter'?9:3} value={config[key]} onChange={e=>update(key,e.target.value)}/>:<input value={config[key]} onChange={e=>update(key,e.target.value)}/>}</label>)}
+            ['secretQuestion','Secret love question'],['successMessage','Sweet response after any answer'],['nickname','Sweet nickname'],['signature','Your signature'],['heading','Invitation heading'],['invite','Invitation message'],['giftNote','Gift message'],['videoCaption','Video caption'],['letter','Love letter'],['finalNote','Final surprise message']
+          ].map(([key,label])=><label className="field" key={key}><span>{label}</span>{['invite','giftNote','letter','finalNote','successMessage'].includes(key)?<textarea rows={key==='letter'?9:3} value={config[key]} onChange={e=>update(key,e.target.value)}/>:<input value={config[key]} onChange={e=>update(key,e.target.value)}/>}</label>)}
         </div>
         <div className="media-tools"><h3>Memory uploads</h3><p>Stored only on this device. Upload again when preparing the final published site.</p>
           <label className="upload-button"><UploadCloud size={18}/> Add photos<input type="file" accept="image/*" multiple hidden onChange={e=>{upload('photos',e.target.files);e.target.value=''}}/></label>
