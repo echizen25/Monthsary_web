@@ -1,61 +1,54 @@
 # Our Little Sunshine 💛
 
-An interactive, mobile-first monthsary surprise in a soft butter-yellow palette.
+A simple, mobile-first romantic surprise website. **No admin dashboard, no browser-only customization, and no database.** Content is bundled in the React application so the recipient sees the same letter on every device.
 
-## Features
-- Three chapters: **Invitation → Gift & Memories → Love Letter & Finale**
-- Animated invitation with Accept and Maybe Later choices
-- Clickable gift box and photo/video memory presentation
-- Customizable letter, nicknames, captions and final surprise
-- Floating music toggle (after adding your own audio)
-- Sunflower and heart finale, replay button
-- Local editing panel using Settings (top right)
-- Browser-only media uploads saved with IndexedDB, text saved with localStorage
-- Reduced-motion support, responsive layout
+## What happens
 
-## Development
-Requires Node.js 20+.
+1. **“Miss mo na ba ako, Baby?”** Only `yes` or `oo` (case-insensitive) continues. Other answers show a cute Try Again message.
+2. Romantic wax-seal envelope invitation
+3. Cinematic gift reveal and **one video** (`1111.mp4`)
+4. Unfolding love letter with the exact personal text supplied by the author, followed by the sunflower finale
 
-```bash
+The letter is in `src/App.jsx` in the `CONTENT.letter` value. **Its wording and spacing were preserved as supplied.** The app does not read previous `localStorage` values and it no longer displays a Customize/admin screen.
+
+## Add your video
+
+Put your complete file at:
+
+```
+Monthsary_web/
+├── public/
+│   └── 1111.mp4
+├── src/
+│   └── App.jsx
+├── vite.config.js
+└── package.json
+```
+
+**Copy the file completely before starting Vite.** On Windows, a large MP4 being copied, processed, or held by another app can produce `EBUSY: resource busy or locked`. The project now ignores `public/**/*.mp4` in Vite's file watcher; restart the dev server after copying the file so the new configuration takes effect.
+
+```powershell
+git switch feature/butter-yellow-monthsary
+git pull origin feature/butter-yellow-monthsary
 npm install
 npm run dev
 ```
 
-Production build:
+Open `http://localhost:5173/1111.mp4` directly in your browser. If the file downloads, is missing, or does not play, check its path, size, and encoding. For broad browser compatibility, encode MP4 as **H.264 video + AAC audio** (avoid unsupported video codecs). Large videos should be compressed for mobile.
 
-```bash
+Then open the website and reach the Memories section after the question, invitation and gift.
+
+## Build and publish
+
+```powershell
 npm run build
 npm run preview
 ```
 
-## Important publishing/privacy notes
+Vite copies `public/1111.mp4` into `dist/1111.mp4` for static deployment. Upload the full build output to a static host like Vercel/Netlify or IIS.
 
-**This GitHub repository was PUBLIC when development started. Change visibility to Private in GitHub Settings → General → Danger Zone before adding any personal photos, messages, or videos.**
+**Privacy warning:** This repository was public when last checked. The letter is committed as source code and a video committed to a public repository or published to an unprotected static site can be accessed by others. Consider changing repository visibility before uploading personal media, and understand that private GitHub visibility does not make a deployed site private.
 
-This is a front-end prototype, **not** a private authenticated site. The Customize panel has no authentication. Media uploaded via the editor is saved in the current browser's IndexedDB and **will not appear on other devices or on a deployment**. Text is saved in that browser's localStorage and does not synchronize.
+## Tech
 
-For a truly shareable customized website, we should next add authenticated editing plus persistent hosted media (for example a protected storage/backend workflow), then deploy with access protection. A hidden URL alone is not private. Do not put secrets or personal media in the public git repository. For demo use, no real photos, videos, or passwords are bundled.
-
-## Stack
-React, Vite, Framer Motion, Lucide icons, custom CSS.
-
-## Secret love question (romantic interaction, not secure access)
-
-The visitor sees **“Miss mo na ba ako, Baby?”**. Only `yes` and `oo` are accepted, case-insensitive and ignoring leading/trailing spaces. A matching answer shows a sweet response and automatically opens the invitation after ~2.2 seconds.
-
-Any other nonempty answer shows a playful **Try again** message and stays on the same page. Changing the input clears the message. The question is fixed; the success and retry messages can be edited from the local preview at `http://localhost:5173/?admin=1`.
-
-**Security warning:** This is client-side romantic interaction, **not** secure authentication. The `?admin=1` preview route is not authenticated, local uploads don't sync across devices, and the question doesn't restrict access to deployed static assets. Use real authentication and protected hosting before sharing confidential memories.
-
-## Video-only Memories section
-
-The photo gallery below the video and the finale photo have been removed. The site now uses a single video presentation.
-
-1. Save your video as `public/1111.mp4` (case-sensitive on many hosting platforms).
-2. Run `npm run dev` and open the memories scene to test playback.
-3. Run `npm run build` before deployment; Vite will copy the video to `dist/1111.mp4`.
-4. Deploy the generated static site to Vercel/Netlify or IIS. The playback URL uses Vite's configured base path.
-
-A local preview video uploaded from the Customize panel still overrides the bundled file **on that browser only**. To ensure your recipient sees the video, include `1111.mp4` in the deployed `public` folder.
-
-**Privacy and size:** This video file has not been uploaded or committed by the assistant. Add it locally. The repository was public when last checked, so do not commit confidential media unless you have first reviewed its visibility. A static deployment does not provide authenticated video access.
+React, Vite, Framer Motion, Lucide icons, CSS animations. Mobile responsive.
