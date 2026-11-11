@@ -39,10 +39,10 @@ For a truly shareable customized website, we should next add authenticated editi
 ## Stack
 React, Vite, Framer Motion, Lucide icons, custom CSS.
 
-## Secret love question (playful, not a password)
+## Secret love question (romantic interaction, not secure access)
 
-The visitor starts with **“Saan tayo unang nag-kiss?”** and the nickname **Baby**. Any nonempty response is accepted, a sweet message appears, and the invitation opens automatically after approximately 2.2 seconds. There is no right-or-wrong validation.
+The visitor sees **“Miss mo na ba ako, Baby?”**. Only `yes` and `oo` are accepted, case-insensitive and ignoring leading/trailing spaces. A matching answer shows a sweet response and automatically opens the invitation after ~2.2 seconds.
 
-For local preview, open `http://localhost:5173/?admin=1` to customize the question and sweet response. Open `http://localhost:5173/` to test the visitor experience.
+Any other nonempty answer shows a playful **Try again** message and stays on the same page. Changing the input clears the message. The question is fixed; the success and retry messages can be edited from the local preview at `http://localhost:5173/?admin=1`.
 
-**Security warning:** The question is only a romantic interaction and **does not restrict access**. The `?admin=1` link is not authenticated. The site and media are not protected by this feature. Proper admin authentication and content access control are still required before sharing private memories.
+**Security warning:** This is client-side romantic interaction, **not** secure authentication. The `?admin=1` preview route is not authenticated, local uploads don't sync across devices, and the question doesn't restrict access to deployed static assets. Use real authentication and protected hosting before sharing confidential memories.
