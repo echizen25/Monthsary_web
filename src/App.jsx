@@ -9,7 +9,7 @@ const DEFAULTS = {
   invite: 'I made a tiny world filled with all the things I love about us. Will you come inside?',
   giftNote: 'Every memory with you feels like a little piece of sunshine.',
   videoCaption: 'All the moments that made us, us.',
-  letter: 'My love,\n\nIf I could keep every moment with you in a jar, I would fill the whole sky with sunshine. Thank you for every laugh, every quiet moment, and every beautiful ordinary day.\n\nHere’s to more adventures, more memories, and a thousand little reasons to smile.\n\nHappy monthsary, my love. ♡',
+  letter: "Hi baby Eto na ung Message ko para sayo .sorry hindi exact 12 am pero hindi din to 11:59PM . may time kase ung pagupload e pero eto nageffort ako baby bka mamiss mo kase ako masyado . kase matagal tayo bago magkita muli. pero uunahan na kita. hindi ito AI . \n\nUnang una baby for almost 2 years madami na tayo pinagdaanan nagiging komportable tayo sa mga bagay .may mga bagay tayo napagkakasunduan .may mga bagay din hindi .normal nmn iyon at kailangan lang sa relasyonship natin na magkaroon ng balance kung sinu ang magaadjust gaya nga ng sabi mo kung sinu magfifill ng cup kung sinu may kulang ay nakakapagadjsut tayo to make this thing work . \nmaraming salamat baby sa lahat ng pagmamahal pagaalaga mo sa akin kahit minsan hindi ka ganon kashowy na sweet sa akin lage mo ako sinasapak haha joke. mahal na mahal paden kita no matter what. walang ibang obstacles na humaharang o gumugulo satin baby para paglayuin or paghiwalayin tayo . wlang temptation na na dapat ikabahala baby sayo lang ako .at wala na ako gusto pa makuha dito sa buhay ko kundi makasama ka lang habang buhay  . maging masaya tayo sa bawat moment na nabubuhay tayo . kaya sabi mo nga stay healthy palage sana maappreciate mo etong basic lang to baby haha benta mo kung gusto mo hahaha. ilove you happy monthsary",
   finalNote: 'You make my world a little brighter, every single day.',
   date: '',
   secretQuestion: 'Miss mo na ba ako, Baby?',
@@ -60,7 +60,7 @@ async function deleteMedia(key) {
 const stars = Array.from({length:15},(_,i)=>({id:i,left:`${(i*37+9)%98}%`,top:`${(i*29+13)%85}%`,delay:(i%7)*.42}));
 
 export default function App(){
-  const [config,setConfig]=useState(()=>{try{const stored=JSON.parse(copy('sunshine-config')||'{}');return {...DEFAULTS,...stored,secretQuestion:DEFAULTS.secretQuestion,successMessage:stored.successMessage==='Yieee! Of course you remember, Baby! 🥹💛 I made something special just for you.'?DEFAULTS.successMessage:(stored.successMessage||DEFAULTS.successMessage)}}catch{return DEFAULTS}});
+  const [config,setConfig]=useState(()=>{try{const stored=JSON.parse(copy('sunshine-config')||'{}');return {...DEFAULTS,...stored,letter:(!stored.letter||stored.letter==="My love,\n\nIf I could keep every moment with you in a jar, I would fill the whole sky with sunshine. Thank you for every laugh, every quiet moment, and every beautiful ordinary day.\n\nHere’s to more adventures, more memories, and a thousand little reasons to smile.\n\nHappy monthsary, my love. ♡")?DEFAULTS.letter:stored.letter,secretQuestion:DEFAULTS.secretQuestion,successMessage:stored.successMessage==='Yieee! Of course you remember, Baby! 🥹💛 I made something special just for you.'?DEFAULTS.successMessage:(stored.successMessage||DEFAULTS.successMessage)}}catch{return DEFAULTS}});
   const [stage,setStage]=useState(-1);
   const [answer,setAnswer]=useState('');
   const [gateState,setGateState]=useState('idle');
