@@ -112,7 +112,7 @@ export default function App(){
             <p className="small-caption">{giftOpening?'A little magic is happening… ✨':'psst… tap the gift box! 🎁'}</p></>:
             <><div className="tiny-heart">♥</div><h1>Our favorite <em>memories</em></h1><p className="lead">{CONTENT.giftNote}</p>
               <div className="video-frame"><video controls playsInline preload="metadata" src={videoSrc} onError={()=>setVideoError('Hindi ma-play ang 1111.mp4. Check kung kumpleto ang file sa public folder at kung H.264 video / AAC audio ang encoding.')} onLoadedData={()=>setVideoError('')}>Your browser does not support this video.</video></div>
-              {videoError&&<p className="video-error" role="alert">{videoError}</p>
+              {videoError&&<p className="video-error" role="alert">{videoError}</p>}
               <p className="video-caption">{CONTENT.videoCaption}</p>
               <div className="button-row"><button className="secondary-button" onClick={()=>setOpened(false)}><ArrowLeft size={16}/> Back to gift</button><button className="primary-button" onClick={()=>setStage(2)}>There's something more <ArrowRight size={17}/></button></div>
             </>}
