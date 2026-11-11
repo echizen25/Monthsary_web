@@ -32,6 +32,7 @@ export default function App(){
   const [letterOpened,setLetterOpened]=useState(false);
   const [letterCount,setLetterCount]=useState(0);
   const [skipLetter,setSkipLetter]=useState(false);
+  const transitionTimers=useRef([]);
   const [showFinal,setShowFinal]=useState(false);
   const [videoError,setVideoError]=useState('');
   const videoSrc=`${import.meta.env.BASE_URL}1111.mp4`;
@@ -128,5 +129,5 @@ export default function App(){
       </AnimatePresence>
     </main>
     <footer>made with a whole lot of love <Heart size={12} fill="currentColor"/> <span>just for you</span></footer>
-  </div>;  </div>;
+  </div>;
 }
