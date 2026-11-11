@@ -12,8 +12,9 @@ const DEFAULTS = {
   letter: 'My love,\n\nIf I could keep every moment with you in a jar, I would fill the whole sky with sunshine. Thank you for every laugh, every quiet moment, and every beautiful ordinary day.\n\nHere’s to more adventures, more memories, and a thousand little reasons to smile.\n\nHappy monthsary, my love. ♡',
   finalNote: 'You make my world a little brighter, every single day.',
   date: '',
-  secretQuestion: 'Saan tayo unang nag-kiss?',
-  successMessage: 'Yieee! Of course you remember, Baby! 🥹💛 I made something special just for you.',
+  secretQuestion: 'Miss mo na ba ako, Baby?',
+  successMessage: 'Yieee! Miss din kita, Baby! 🥹💛 May special surprise ako para sa’yo.',
+  retryMessage: 'Halaaa Baby! 🥺 Try again… alam mo naman ang sagot diyan. Hihi! 💛',
 };
 const copy = (key) => { try { return localStorage.getItem(key); } catch { return null; } };
 const save = (key, val) => { try { localStorage.setItem(key,val); } catch {} };
@@ -59,7 +60,7 @@ async function deleteMedia(key) {
 const stars = Array.from({length:15},(_,i)=>({id:i,left:`${(i*37+9)%98}%`,top:`${(i*29+13)%85}%`,delay:(i%7)*.42}));
 
 export default function App(){
-  const [config,setConfig]=useState(()=>{try{return {...DEFAULTS,...JSON.parse(copy('sunshine-config')||'{}')}}catch{return DEFAULTS}});
+  const [config,setConfig]=useState(()=>{try{const stored=JSON.parse(copy('sunshine-config')||'{}');return {...DEFAULTS,...stored,secretQuestion:DEFAULTS.secretQuestion,successMessage:stored.successMessage==='Yieee! Of course you remember, Baby! 🥹💛 I made something special just for you.'?DEFAULTS.successMessage:(stored.successMessage||DEFAULTS.successMessage)}}catch{return DEFAULTS}});
   const [stage,setStage]=useState(-1);
   const [answer,setAnswer]=useState('');
   const [gateState,setGateState]=useState('idle');
@@ -107,6 +108,11 @@ export default function App(){
   const submitAnswer=(e)=>{
     e.preventDefault();
     if(gateState==='correct'||!answer.trim())return;
+    const normalized=answer.trim().toLocaleLowerCase();
+    if(!['yes','oo'].includes(normalized)){
+      setGateState('wrong');
+      return;
+    }
     setGateState('correct');
     clearTimeout(advanceTimer.current);
     advanceTimer.current=setTimeout(()=>{
@@ -197,9 +203,10 @@ export default function App(){
             <button type="submit" className="primary-button" disabled={gateState==='correct'||!answer.trim()}>{gateState==='correct'?'A little surprise is coming…':'Unlock my surprise'} <Heart size={16} fill="currentColor"/></button>
           </form>
           <AnimatePresence mode="wait">
+            {gateState==='wrong'&&<motion.div key="wrong" className="secret-feedback warning" initial={{opacity:0,y:9}} animate={{opacity:1,y:0}} exit={{opacity:0}} role="status">{config.retryMessage||DEFAULTS.retryMessage}<small>Subukan mo ulit, Baby ♡</small></motion.div>}
             {gateState==='correct'&&<motion.div key="correct" className="secret-feedback correct" initial={{opacity:0,scale:.93}} animate={{opacity:1,scale:1}} exit={{opacity:0}} role="status"><span className="floating-hearts">♥ ♡ ♥</span>{config.successMessage}<small>Opening your invitation…</small></motion.div>}
           </AnimatePresence>
-          <p className="small-caption">only my favorite person knows this 💛</p>
+          <p className="small-caption">only one answer will make my heart happy 💛</p>
         </motion.section>}
         {stage===0&&<motion.section key="invite" {...MOTION} className="scene invite-scene">
           <div className="eyebrow">✦ a note from someone who adores you ✦</div>
@@ -240,11 +247,11 @@ export default function App(){
       <motion.aside className="editor" initial={{x:420}} animate={{x:0}} exit={{x:420}} transition={{type:'spring',damping:28,stiffness:230}} role="dialog" aria-modal="true" aria-label="Customize your surprise">
         <div className="editor-header"><div><span className="eyebrow">make it yours</span><h2>Customize ♡</h2></div><button className="icon-button" aria-label="Close editor" onClick={()=>setEdit(false)}><X/></button></div>
         <p className="editor-notice"><LockKeyhole size={15}/> This editor is only a local preview, not password-protected. Changes and uploaded media stay in this browser, not in GitHub or on your recipient's device.</p>
-        <p className="editor-notice"><LockKeyhole size={15}/> Preview only: /?admin=1 is NOT secure authentication. Any nonempty answer continues automatically; this question is just a playful introduction, not a security check. Changes stay in this browser.</p>
+        <p className="editor-notice"><LockKeyhole size={15}/> Preview only: /?admin=1 is NOT secure authentication. Only Yes or Oo (case-insensitive) opens the invitation. Other answers stay on the question page. This is a playful interaction, not secure access control. Changes stay in this browser.</p>
         <div className="field-grid">
           {[
-            ['secretQuestion','Secret love question'],['successMessage','Sweet response after any answer'],['nickname','Sweet nickname'],['signature','Your signature'],['heading','Invitation heading'],['invite','Invitation message'],['giftNote','Gift message'],['videoCaption','Video caption'],['letter','Love letter'],['finalNote','Final surprise message']
-          ].map(([key,label])=><label className="field" key={key}><span>{label}</span>{['invite','giftNote','letter','finalNote','successMessage'].includes(key)?<textarea rows={key==='letter'?9:3} value={config[key]} onChange={e=>update(key,e.target.value)}/>:<input value={config[key]} onChange={e=>update(key,e.target.value)}/>}</label>)}
+            ['successMessage','Sweet response for Yes / Oo'],['retryMessage','Try again response'],['nickname','Sweet nickname'],['signature','Your signature'],['heading','Invitation heading'],['invite','Invitation message'],['giftNote','Gift message'],['videoCaption','Video caption'],['letter','Love letter'],['finalNote','Final surprise message']
+          ].map(([key,label])=><label className="field" key={key}><span>{label}</span>{['invite','giftNote','letter','finalNote','successMessage','retryMessage'].includes(key)?<textarea rows={key==='letter'?9:3} value={config[key]} onChange={e=>update(key,e.target.value)}/>:<input value={config[key]} onChange={e=>update(key,e.target.value)}/>}</label>)}
         </div>
         <div className="media-tools"><h3>Memory uploads</h3><p>Stored only on this device. Upload again when preparing the final published site.</p>
           <label className="upload-button"><UploadCloud size={18}/> Add photos<input type="file" accept="image/*" multiple hidden onChange={e=>{upload('photos',e.target.files);e.target.value=''}}/></label>
